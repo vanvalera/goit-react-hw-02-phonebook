@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-
+import PropTypes from 'prop-types';
+import css from './ContactForm.module.css';
 class ContactForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
     name: '',
     number: '',
@@ -27,8 +31,8 @@ class ContactForm extends Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameInputId}>
+        <form onSubmit={this.handleSubmit} className={css.form}>
+          <label htmlFor={this.nameInputId} className={css.label}>
             Name
             <input
               value={this.state.name}
@@ -36,24 +40,29 @@ class ContactForm extends Component {
               id={this.nameInputId}
               type="text"
               name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
+              className={css.input__name}
             />
           </label>
-          <label htmlFor={this.numberInputId}>
+          <label htmlFor={this.numberInputId} className={css.label}>
+            Number
             <input
               value={this.state.number}
               onChange={this.handleChange}
               id={this.numberInputId}
               type="tel"
               name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              pattern="\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
+              className={css.input__number}
             />
           </label>
-          <button type="submit">Add contact</button>
+          <button type="submit" className={css.button__add}>
+            Add contact
+          </button>
         </form>
       </>
     );
