@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import css from './App.module.css';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
 class App extends Component {
-  static propTypes = {
-    contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      })
-    ),
-    filter: PropTypes.string,
-  };
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -24,8 +13,6 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   addContact = contact => {
@@ -47,11 +34,13 @@ class App extends Component {
   handleChange = e => {
     this.setState({ filter: e.target.value });
   };
-  deleteContact = contctId => {
+
+  deleteContact = contactId => {
     this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contctId),
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+
   getFilteredContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
